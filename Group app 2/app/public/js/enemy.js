@@ -14,6 +14,7 @@ function Character(name, health, attackLight, attackMed, attackHeavy, numLight, 
     //prints the charters stats
     this.printStats = function () {
         // dont know what to put in here yet ... so yeah
+        // could use handle bars 
     };
 
     // check to see if hero is alive or not
@@ -53,10 +54,9 @@ function Character(name, health, attackLight, attackMed, attackHeavy, numLight, 
         this.attackHeavy += 200;
 
     }
-
     //****************************** Implement code to add money to Character and functions****************/
+    // might be better to put in isAlive function
 };
-
 
 function Enemy(name, health, attackLight, attackMed, attackHeavy) {
 
@@ -81,22 +81,42 @@ function Enemy(name, health, attackLight, attackMed, attackHeavy) {
     }
 
     //*********************need help setting up random attacks****************************//
+
+    //code to make attacks random
     this.randomAttack = function () {
         Math.floor(Math.random(attacks) * 4);
     }
 }
+
 // the good guys
-// try to store all characters in one var
-// var heros = {
-var saltySamuel = new Character("Salty Samuel", 600, 50, 150, 350, 20, 10, 5);
-var toddlerTim = new Character("ToddlerTim", 800, 50, 170, 300, 20, 10, 5);
-// }
+
+var hero = {};
+hero.saltySamuel = new Character("Salty Samuel", 600, 50, 150, 350, 20, 10, 5);
+hero.toddlerTim = new Character("ToddlerTim", 800, 50, 170, 300, 20, 10, 5);
 
 // the bad guys
-// store all enemys in one variable
-var jade = new Enemy("jade", 150, 50, 100, 180);
-var sloppyJoe = new Enemy("jade", 300, 10, 150, 200);
-var sweetSamuel = new Enemy("sweetSamuel", 400, 50, 180, 225);
+
+var villan = {};
+villan.jade = new Enemy("jade", 150, 50, 100, 180);
+villan.sloppyJoe = new Enemy("Jade", 300, 10, 150, 200);
+villan.sweetSamuel = new Enemy("Sweet Samuel", 400, 50, 180, 225);
+villan.slipperyPete = new Enemy("Slippery Pete", 450, 100, 200, 200);
+villan.bigDaddyMac = new Enemy("Big Daddy Mac", 500, 150, 250, 300);
+villan.thatGuy = new Enemy("That Guy", 500, 150, 250, 300);
+villan.baues = new Enemy("Baues", 1000, 250, 400, 500);
+
+// Runs all functions in constructors 
+
+hero.attack(villan);
+hero.isAlive();
+hero.shopPurchases();
+hero.numAttacks();
+hero.attack();
+hero.printStats();
+
+villan.attack(hero);
+villan.isAlive();
+villan.randomAttack();
 
 
 // code to loop so game keeps going until death THERE cAN ONLY BE ONe!!!!!!!!!!!
@@ -105,67 +125,3 @@ while (hero.isAlive() === true && villan.isAlive() === true) {
     hero.attack(villan);
     villan.attack(hero);
 }
-
-
-
-
-////////////////////////////////////// early code that got scrapped //////////////////////
-
-// var hero = {
-//     "Big Jack": {
-//         name: "Big Jack",
-//         health: 500,
-//         attackLight: 100,
-//         attackMedium: 150,
-//         attackHeavy: 300,
-//     },
-//     "Sweet Jane": {
-//         name: "Big Jack",
-//         health: 800,
-//         attackLight: 100,
-//         attackMedium: 120,
-//         attackHeavy: 250,
-//     }
-// };
-
-// var villan = {
-//     "Sloppy Joe": {
-//         name: "Sloppy Joe",
-//         health: 200,
-//         attackLight: 50,
-//         attackHeavy: 150,
-//     },
-//     "Shifty Samuel": {
-//         name: "Shifty Samuel",
-//         health: 300,
-//         attackLight: 100,
-//         attackHeavy: 250,
-//     },
-//     "Dirty Dan": {
-//         name: "Drity Dan",
-//         health: 350,
-//         attackLight: 100,
-//         attackHeavy: 250,
-//     },
-//     "Spicy Lola": {
-//         name: "Spicy Lola",
-//         health: 300,
-//         attackHeavy: 400,
-//     },
-//     "Le Boss": {
-//         name: "Le Boss",
-//         health: 1000,
-//         attackLight: 200,
-//         attackMedium: 350,
-//         attackHeavy: 500,
-//     },
-// };
-
-// var attacker;
-// var fighters = [];
-// var defender;
-// var turnCount = 1;
-
-// var initalizeGame = function () {
-
-// }
