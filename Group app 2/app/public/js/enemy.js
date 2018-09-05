@@ -1,7 +1,6 @@
 // this is where all our enemys and hero will be
 
-function Character(name, health, attackLight, attackMed, attackHeavy, numLight, numMed, numHeavy, money) {
-    this.name = name;
+function Character(health, attackLight, attackMed, attackHeavy, numLight, numMed, numHeavy, money) {
     this.health = health;
     this.attackLight = attackLight;
     this.attackMed = attackMed;
@@ -36,6 +35,13 @@ function Character(name, health, attackLight, attackMed, attackHeavy, numLight, 
         Enemy.attackHeavy -= this.health;
     };
 
+    //when getting hit by enemy
+    this.gettingHit = function () {
+        Character.attackLight -= this.health;
+        Character.attackMed -= this.health;
+        Character.attackHeavy -= this.health;
+    }
+
     // gets rid of button once out of moves 
     this.numAttacks = function () {
         // need help setting DRY code to use only one variable ******************************************
@@ -54,11 +60,49 @@ function Character(name, health, attackLight, attackMed, attackHeavy, numLight, 
         this.attackHeavy += 200;
 
     }
-    //****************************** Implement code to add money to Character and functions****************/
-    // might be better to put in isAlive function
+    //***************************** Implement code to add money to Character and functions****************/
+    //                                     might be better to put in isAlive function
+    //****************************** Make money come out when enemey is killed and send to game over sceen***************************/
 };
 
-function Enemy(name, health, attackLight, attackMed, attackHeavy) {
+// function Enemy(name, health, attackLight, attackMed, attackHeavy) {
+
+//     // checks to see if enemy is alive (might not need)
+//     this.isAlive = function () {
+//         if (this.health > 0) {
+//             console.log(this.name + "is living")
+//             return true;
+//         } else {
+//             // code for going back to game once enemy dies and giving Character more money
+//         }
+//         console.log(this.name + "dead")
+//         return false;
+//     };
+
+//     // when you wanna body the Hero 
+//     this.enemyAttack = function (Character) {
+//         Character.attackLight -= this.health;
+//         Character.attackMed -= this.health;
+//         Character.attackHeavy -= this.health
+//     }
+
+//     // for when the villan gets attacked
+//     this.enemyGettingHit = function () {
+//         Enemy.attackLight -= this.health;
+//         Enemy.attackMed -= this.health;
+//         Enemy.attackHeavy -= this.health
+//     }
+//     //********************* need help setting up random attacks****************************//
+
+//     //code to make attacks random
+//     this.randomAttack = function (hero, villan) {
+
+//         Math.floor(Math.random(attacks) * 4);
+//     }
+// }
+
+
+function Enemy(health, attack) {
 
     // checks to see if enemy is alive (might not need)
     this.isAlive = function () {
@@ -67,6 +111,7 @@ function Enemy(name, health, attackLight, attackMed, attackHeavy) {
             return true;
         } else {
             // code for going back to game once enemy dies and giving Character more money
+            Character += money;
         }
         console.log(this.name + "dead")
         return false;
@@ -74,17 +119,19 @@ function Enemy(name, health, attackLight, attackMed, attackHeavy) {
 
     // when you wanna body the Hero 
     this.enemyAttack = function (Character) {
-        Character.attackLight -= this.health;
-        Character.attackMed -= this.health;
-        Character.attackHeavy -= this.health;
-
+        Character.attack -= this.health;
     }
 
-    //*********************need help setting up random attacks****************************//
+    // for when the villan gets attacked
+    this.enemyGettingHit = function () {
+        Enemy.attackLight -= this.health;
+        Enemy.attackMed -= this.health;
+        Enemy.attackHeavy -= this.health
+    }
 
     //code to make attacks random
-    this.randomAttack = function () {
-        Math.floor(Math.random(attacks) * 4);
+    this.randomAttack = function (villan) {
+        Math.floor(Math.random(villan.attacks) * 421);
     }
 }
 
