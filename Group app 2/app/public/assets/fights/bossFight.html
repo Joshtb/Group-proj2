@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <link rel="stylesheet" type="text/css" media="screen" href="main.css" /> -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="./fights/enemy.js"></script>
+
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <h1 class="display-4" id="heroName"></h1>
+        <p class="lead" id="healthDis">Health: </p>
+        <hr class="my-4">
+        <p id="lightDis">Number of light attacks left:</p>
+        <p id="medDis">Number of medium attacks left:</p>
+        <p id="heavyDis">Number of heavy attacks left:</p>
+        <p id="moneyDis">Money:</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" id="lightBtn" href="#" role="button">Light Attack</a>
+            <a class="btn btn-primary btn-lg" id="medBtn" href="#" role="button">Medium Attack</a>
+            <a class="btn btn-primary btn-lg" id="heavyBtn" href="#" role="button">Heavy Attack</a>
+        </p>
+
+    </div>
+
+    <div class="jumbotron">
+        <h1 class="display-4" id="villanName"></h1>
+        <p class="lead" id="vhealthDis">Health:</p>
+        <hr class="my-4">
+        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+    </div>
+
+
+
+    <script>
+        $(document).ready(function () {
+
+            // hero display
+            $("#heroName").append(hero.saltySamuel.name);
+            $("#healthDis").append(hero.saltySamuel.health);
+            $("#lightDis").append(hero.saltySamuel.numLight);
+            $("#medDis").append(hero.saltySamuel.numMed);
+            $("#heavyDis").append(hero.saltySamuel.numHeavy);
+            $("#moneyDis").append(hero.saltySamuel.money);
+
+
+            $("#lightBtn").on("click", function () {
+                hero.saltySamuel.attackL(villan.jade);
+                hero.saltySamuel.minusAttacklight();
+                hero.saltySamuel.numAttacksLight();
+                villan.jade.enemyAttack(hero.saltySamuel);
+                $("#healthDis").text("health: " + hero.saltySamuel.health)
+                $("#lightDis").text("Number of light attacks left: " + hero.saltySamuel.numLight);
+                $("#vhealthDis").text("health: " + villan.jade.health);
+                villan.jade.isAliveV(hero.saltySamuel)
+                hero.saltySamuel.isAlive();
+                console.log("---------", hero.saltySamuel);
+            });
+
+            $("#medBtn").on("click", function () {
+                hero.saltySamuel.attackM(villan.jade);
+                hero.saltySamuel.minusAttackMed();
+                hero.saltySamuel.numAttacksMed();
+                villan.jade.enemyAttack(hero.saltySamuel);
+                $("#healthDis").text("health: " + hero.saltySamuel.health);
+                console.log("Hero-----", hero.saltySamuel)
+                $("#medDis").text("Number of Medium attacks left: " + hero.saltySamuel.numMed);
+                $("#vhealthDis").text("health: " + villan.jade.health);
+                villan.jade.isAliveV(hero.saltySamuel)
+                hero.saltySamuel.isAlive();
+                console.log("---------", hero.saltySamuel);
+            });
+
+            $("#heavyBtn").on("click", function () {
+                hero.saltySamuel.minusAttackHeavy();
+                hero.saltySamuel.numAttacksHeavy();
+                hero.saltySamuel.attackH(villan.jade);
+                villan.jade.enemyAttack(hero.saltySamuel);
+                $("#healthDis").text("health: " + hero.saltySamuel.health)
+                $("#heavyDis").text("Number of Heavy attacks left: " + hero.saltySamuel.numHeavy);
+                $("#vhealthDis").text("health: " + villan.jade.health);
+                villan.jade.isAliveV(hero.saltySamuel)
+                hero.saltySamuel.isAlive();
+                console.log("---------", hero.saltySamuel);
+            });
+
+            //villan display
+            $("#villanName").text(villan.jade.name);
+            $("#vhealthDis").append(villan.jade.health)
+        })
+    </script>
+
+</body>
+
+</html>
