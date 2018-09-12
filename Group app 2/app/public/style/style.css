@@ -1,0 +1,128 @@
+#canvas {
+    border: 1px solid black;
+    background-image: "/imgs/litty.gif"
+     
+}
+
+#canvas2 {
+    background-image: "/imgs/scene2.gif"
+}
+
+#canvas3 {
+    background-image: "/imgs/city3.gif"
+}
+
+#canvas4 {
+    background-image: "/imgs/city4.gif"
+}
+
+#canvas5 {
+    background-image: "/imgs/gif5.gif"
+}
+
+
+
+#arrow {
+    width: 50px;
+    height: 70px;
+    right: 283px;
+    position: relative;
+}
+
+#arrow2 {
+    width: 50px;
+    height: 70px;
+    position: absolute;
+    top:440px;
+    left:858px;
+}
+
+#arrow3 {
+    width: 50px;
+    height: 70px;
+    position: absolute;
+    top:440px;
+    left:858px;
+}
+
+#backdoor1 {
+    width: 50px;
+    height: 70px;
+    top:-110px;
+    /* right: 1188px; */
+    position: relative;
+}
+
+#backdoor2 {
+    width: 50px;
+    height: 70px;
+    top:-75px;
+    /* right: 1222px; */
+    position: relative;
+}
+
+#backdoor3 {
+    width: 50px;
+    height: 70px;
+    top:-75px;
+    /* right: 1222px; */
+    position: relative;
+}
+
+#backdoor4 {
+    width: 50px;
+    height: 70px;
+    top:-75px;
+    /* right: 1170px; */
+    position: relative;
+}
+
+#shopdoor {
+    height: 105px;
+    width: 64px;
+    position: relative;
+    top: -110px;
+    /* right: 600px; */
+    left:277px;
+}
+
+#moneyone{
+    width: 30px;
+    height: 35px;
+    position: relative;
+    right: 550px;
+    top: -115px;
+}
+
+#money {
+    width: 30px;
+    height: 35px;
+    position: relative;
+    right: 550px;
+    top: -70px;
+}
+
+#money4 {
+    width: 30px;
+    height: 35px;
+    position: relative;
+    right: 800px;
+    top: -70px;
+}
+
+#money5 {
+    width: 30px;
+    height: 35px;
+    position: relative;
+    right: 510px;
+    top: -275px;
+}
+
+
+#bossfight{
+    width: 50px;
+    height: 70px;
+    position: absolute;
+    top:440px;
+    left:858px;
+}
