@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="/style/style.css" />
+    <link rel="shortcut icon" type="image/ico" href="favicon(2).ico">
+
+</head>
+
+<body>
+    <canvas id="canvas4" height="500" width="900"></canvas>
+    <button id="left2">Left</button>
+    <button id="right2">Right</button>
+    <button id="down2">Down</button>
+    <button id="up2">Up</button>
+    <button id="chill2">Chill</button>
+    <img id="money4" src="/imgs/munn.png" onclick="fightThree()">
+    <img src="/imgs/door.png" id="arrow3" onclick="nextMap4()">
+    <img src="/imgs/door2.png" id="backdoor3" onclick="backMap3()">
+
+    <script>
+        var canvas = document.getElementById("canvas4");
+        var context = canvas.getContext('2d');
+        // var GIF;
+        // var gif = new GIF({
+        //   workers: 2,
+        //   quality: 10
+        // });
+        // var city = "city3.gif"
+        // // add a image element
+        // gif.addFrame(city);
+
+        // // or a canvas element
+        // gif.addFrame(canvas, {delay: 200});
+
+        // // or copy the pixels from a canvas context
+        // gif.addFrame(context, {copy: true});
+
+        // gif.on('finished', function(blob) {
+        //   window.open(URL.createObjectURL(blob));
+        // });
+
+        // gif.render();
+
+
+
+        var xPos = 0;
+        var yPos = 0;
+        // var trackFront = 0;
+        // var trackRight = 1;
+        // var trackLeft = .4;
+        // var moveLeft1 = false;
+        var cols = 8;
+
+        var character = new Image();
+        character.src = "/imgs/knightidle.png"
+
+
+        document.getElementById("right2").onclick = function moveRight() {
+            character.src = "/imgs/knightmoveright.png";
+            xPos += 20;
+        }
+        document.getElementById("left2").onclick = function moveLeft() {
+            character.src = "/imgs/knightmoveleft.png"
+            xPos -= 20;
+        }
+
+        document.getElementById("down2").onclick = function moveLeft() {
+            character.src = "imgs/knightmoveforward.png"
+            yPos += 20;
+        }
+
+        document.getElementById("up2").onclick = function moveLeft() {
+            character.src = "imgs/knightmoveback.png"
+            yPos -= 20;
+        }
+
+        document.getElementById("chill2").onclick = function dontMove() {
+            character.src = "/imgs/knightidle.png"
+        }
+
+
+        var sx = 0;
+        var sy = 0;
+        var sWidth = 35;
+        var sHeigth = 34;
+        var sheetWidth = 672;
+        var sheetHeight = 420;
+        // var cols = 8;
+
+        var rows = 1;
+
+
+        var width = sheetWidth / cols;
+        var height = sheetHeight / rows;
+        var currentFrame = 0;
+
+
+        //             var character = sprite({
+        //     context: canvas.getContext("2d"),
+        //     sWidth: 35 ,
+        //     sHeight: 34,
+        //     image: "knightidle.png",
+        //     cols:8
+        // });
+
+        // var enemy1 = new sprite({
+        //     context: canvas.getContext("2d"),
+        //     sWidth: 35,
+        //     sHeight: 34,
+        //     image: enemy1img,
+        //     cols: 7
+        // })
+        var enemy1 = new Image();
+        enemy1.src = "/imgs/cybergirl1.png";
+
+
+        var background2 = new Image();
+        background2.src = "/imgs/city4.gif";
+        myBackground = new Image(656, 270, "/imgs/city4.gif", 0, 0, "gif");
+
+        // var enemy1 = new Image();
+        // enemy1.src="muney.png"
+
+
+
+
+        // Make sure the image is loaded first otherwise nothing will draw.
+        background2.onload = function () {
+            drawImage1();
+
+
+
+        }
+        //         var img = new Image();   // Create new img element
+        // img.src = "fire-skull.png";
+
+        // enemy1.onload = function (){
+        //     context.drawImage(enemy1,40,80);
+        // }
+        // function updateFrame2() {
+
+        //     cols = 12;
+        //     width = sheetWidth / cols;
+
+        //     currentFrame = ++currentFrame % cols;
+
+        //     sx = currentFrame * width;
+        //     sy = 0 * height;
+        //     context.drawImage(enemy1, sx, sy, width, height, 900, 200, width, height)
+
+        // }
+
+        function updateFrame() {
+            context.clearRect(xPos, yPos, width, height);
+            cols = 8;
+            width = sheetWidth / cols;
+            currentFrame = ++currentFrame % cols;
+
+            sx = currentFrame * width;
+            sy = 0 * height;
+
+
+        }
+
+        function updateFrame2() {
+
+            cols = 12;
+            width = sheetWidth / cols;
+
+            currentFrame = ++currentFrame % cols;
+
+            sx = currentFrame * width;
+            sy = 0 * height;
+            context.drawImage(enemy1, sx, sy, width, height, 300, 390, width, height)
+
+        }
+
+        function drawImage1() {
+
+
+            updateFrame();
+
+
+            context.drawImage(background2, 0, 0);
+            //xpos and ypos are where the sprite is on the page
+            context.drawImage(character, sx, sy, width, height, xPos, yPos, width, height)
+            // context.drawImage(enemy1, sx, sy, width, height, 400, 200, width, height)
+            updateFrame2();
+        }
+
+
+
+        setInterval(function () {
+            drawImage1();
+
+
+        }, 100);
+
+        function nextMap4() {
+            window.location.href = "/stage5";
+
+        }
+
+        function backMap3() {
+            window.location.href = "/stage3";
+        }
+
+        function fightThree() {
+            window.location.href = "/fight3";
+        }
+    </script>
+</body>
+
+</html>
