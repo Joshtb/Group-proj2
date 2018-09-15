@@ -4,7 +4,6 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
   "author": "",
@@ -19,9 +18,5 @@
     "requirejs": "^2.3.6",
     "sequelize": "^4.38.0",
     "sql": "^0.78.0"
-  },
-  "scripts": {
-    "start": "node server.js"
   }
-
 }
