@@ -133,7 +133,7 @@ function Enemy(name, health, attack) {
     this.name = name;
     this.health = health;
     this.attack = attack;
-    this.money = Math.floor(Math.random() * 100) + 50;
+    this.money = Math.floor(Math.random() * 20) + 5;
 
 
     // checks to see if enemy is alive and send to walking page
@@ -224,7 +224,7 @@ function Enemy(name, health, attack) {
     };
 
     //code to make attacks random
-    this.attackValue = Math.floor(Math.random() * 10000000) + 100000000
+    this.attackValue = Math.floor(Math.random() * 50) + 10
 };
 
 this.isAliveV3 = function (Character) {
@@ -305,7 +305,49 @@ this.isAliveV4 = function (Character) {
     return false;
 };
 
+this.isAliveVB = function (Character) {
+    if (this.health > 0) {
+        console.log(this.name + "is living")
+        return true;
+    } else {
+
+        Character.money = Character.money + this.money;
+        upDatedGp = Character.money;
+        console.log("current playerId: " + updatedPlayer + " | current gp: $" + upDatedGp + " | Current health: " + updatedHealth + " | Current light att: " + updatedAL + " | Current med att: " + updatedAM + " | Current heavy att: " + updatedAH);
+
+        var newPlayerStats = {
+            health: updatedHealth,
+            gp: upDatedGp,
+            numLight: updatedNL,
+            numMed: updatedNM,
+            numHeavy: updatedNH,
+            attackLight: updatedAL,
+            attackMed: updatedAM,
+            attackHeavy: updatedAH,
+        };
+
+        $.ajax("/api/players/" + updatedPlayer, {
+            type: "PUT",
+            data: newPlayerStats
+        }).then(
+            function () {
+                console.log();
+                // Reload the page to get the updated list
+                location.reload();
+            }
+        );
+
+        window.location = "/bossfight"
+
+    }
+    console.log(this.name + "dead")
+    return false;
+};
+
+
+
 // var
+// the good guys
 
 var hero = {};
 hero.toddlerTim = new Character("ToddlerTim", 800, 50, 170, 300, 20, 10, 5, 0);
@@ -315,6 +357,10 @@ console.log(hero);
 
 var villan = {};
 villan.jade = new Enemy("Jade", 150, 10);
+villan.slipperyPete = new Enemy("Slippery Pete", 450, 100);
+villan.bigDaddyMac = new Enemy("Big Daddy Mac", 500, 15);
+villan.slimeeee = new Enemy("Slimeee", 400, 10);
+villan.baues = new Enemy("Baues", 1000, 250, 400, 500);
 
 $(document).ready(function () {
 
@@ -340,11 +386,12 @@ $(document).ready(function () {
         $("#moneyDis").append(upDatedGp);
         hero.yourChar = new Character(updatedPlayer, updatedHealth, updatedAL, updatedAM, updatedAH, updatedNL, updatedNM, updatedNH, upDatedGp);
         console.log(JSON.stringify(hero.yourChar));
+        $("#statsBtn").hide();
+
+        //villan display
+        $("#villanName").text(villan.jade.name);
+        $("#vhealthDis").append(villan.jade.health)
     });
-
-
-
-
 
     $("#lightBtn").on("click", function () {
         event.preventDefault();
@@ -388,81 +435,327 @@ $(document).ready(function () {
         hero.yourChar.isAlive();
         console.log("---------", hero.yourChar);
     });
+})
 
-    //villan display
-    $("#villanName").text(villan.jade.name);
-    $("#vhealthDis").append(villan.jade.health)
+////////// slippery pete ////////////////////////////////////////////////
+
+$(document).ready(function () {
+
+    $("#statsBtn2").on("click", function () {
+        event.preventDefault();
+        updatedPlayer = $(this).data("player");
+        updatedName = $(this).data("name");
+        upDatedGp = $(this).data("gp");
+        updatedHealth = $(this).data("health");
+        updatedAL = $(this).data("al");
+        updatedAM = $(this).data("am");
+        updatedAH = $(this).data("ah");
+        updatedNL = $(this).data("nl");
+        updatedNM = $(this).data("nm");
+        updatedNH = $(this).data("nh");
+
+
+        // hero display
+        $("#heroName").append(updatedName);
+        $("#healthDis").append(updatedHealth);
+        $("#lightDis").append(updatedNL);
+        $("#medDis").append(updatedNM);
+        $("#heavyDis").append(updatedNH);
+        $("#moneyDis").append(upDatedGp);
+        $("#statsBtn2").hide();
+
+        hero.yourChar = new Character(updatedPlayer, updatedHealth, updatedAL, updatedAM, updatedAH, updatedNL, updatedNM, updatedNH, upDatedGp);
+        console.log(JSON.stringify(hero.yourChar));
+
+        //villan display
+        $("#villanName").text(villan.slipperyPete.name);
+        $("#vhealthDis").append(villan.slipperyPete.health)
+    });
+
+    $("#lightBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackL(villan.slipperyPete);
+        hero.yourChar.minusAttacklight();
+        hero.yourChar.numAttacksLight();
+        villan.slipperyPete.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#lightDis").text("Number of light attacks left: " + hero.yourChar.numLight);
+        $("#vhealthDis").text("health: " + villan.slipperyPete.health);
+        villan.slipperyPete.isAliveV2(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#medBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackM(villan.slipperyPete);
+        hero.yourChar.minusAttackMed();
+        hero.yourChar.numAttacksMed();
+        villan.slipperyPete.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health);
+        console.log("Hero-----", hero.yourChar)
+        $("#medDis").text("Number of Medium attacks left: " + hero.yourChar.numMed);
+        $("#vhealthDis").text("health: " + villan.slipperyPete.health);
+        villan.slipperyPete.isAliveV2(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#heavyBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.minusAttackHeavy();
+        hero.yourChar.numAttacksHeavy();
+        hero.yourChar.attackH(villan.slipperyPete);
+        villan.slipperyPete.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#heavyDis").text("Number of Heavy attacks left: " + hero.yourChar.numHeavy);
+        $("#vhealthDis").text("health: " + villan.slipperyPete.health);
+        villan.slipperyPete.isAliveV2(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+})
+
+
+////////////////// bigDaddyMac //////////////
+
+$(document).ready(function () {
+
+    $("#statsBtn3").on("click", function () {
+        event.preventDefault();
+        updatedPlayer = $(this).data("player");
+        updatedName = $(this).data("name");
+        upDatedGp = $(this).data("gp");
+        updatedHealth = $(this).data("health");
+        updatedAL = $(this).data("al");
+        updatedAM = $(this).data("am");
+        updatedAH = $(this).data("ah");
+        updatedNL = $(this).data("nl");
+        updatedNM = $(this).data("nm");
+        updatedNH = $(this).data("nh");
+
+        // hero display
+        $("#heroName").append(updatedName);
+        $("#healthDis").append(updatedHealth);
+        $("#lightDis").append(updatedNL);
+        $("#medDis").append(updatedNM);
+        $("#heavyDis").append(updatedNH);
+        $("#moneyDis").append(upDatedGp);
+        $("#statsBtn3").hide();
+
+        hero.yourChar = new Character(updatedPlayer, updatedHealth, updatedAL, updatedAM, updatedAH, updatedNL, updatedNM, updatedNH, upDatedGp);
+        console.log(JSON.stringify(hero.yourChar));
+
+        //villan display
+        $("#villanName").text(villan.bigDaddyMac.name);
+        $("#vhealthDis").append(villan.bigDaddyMac.health)
+    });
+
+    $("#lightBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackL(villan.bigDaddyMac);
+        hero.yourChar.minusAttacklight();
+        hero.yourChar.numAttacksLight();
+        villan.bigDaddyMac.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#lightDis").text("Number of light attacks left: " + hero.yourChar.numLight);
+        $("#vhealthDis").text("health: " + villan.bigDaddyMac.health);
+        villan.bigDaddyMac.isAliveV3(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#medBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackM(villan.bigDaddyMac);
+        hero.yourChar.minusAttackMed();
+        hero.yourChar.numAttacksMed();
+        villan.bigDaddyMac.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health);
+        console.log("Hero-----", hero.yourChar)
+        $("#medDis").text("Number of Medium attacks left: " + hero.yourChar.numMed);
+        $("#vhealthDis").text("health: " + villan.bigDaddyMac.health);
+        villan.bigDaddyMac.isAliveV3(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#heavyBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.minusAttackHeavy();
+        hero.yourChar.numAttacksHeavy();
+        hero.yourChar.attackH(villan.bigDaddyMac);
+        villan.bigDaddyMac.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#heavyDis").text("Number of Heavy attacks left: " + hero.yourChar.numHeavy);
+        $("#vhealthDis").text("health: " + villan.bigDaddyMac.health);
+        villan.bigDaddyMac.isAliveV3(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+})
+
+
+////// Slime ///////////////////////////////////////////
+
+$(document).ready(function () {
+
+    $("#statsBtn4").on("click", function () {
+        event.preventDefault();
+        updatedPlayer = $(this).data("player");
+        updatedName = $(this).data("name");
+        upDatedGp = $(this).data("gp");
+        updatedHealth = $(this).data("health");
+        updatedAL = $(this).data("al");
+        updatedAM = $(this).data("am");
+        updatedAH = $(this).data("ah");
+        updatedNL = $(this).data("nl");
+        updatedNM = $(this).data("nm");
+        updatedNH = $(this).data("nh");
+
+        // hero display
+        $("#heroName").append(updatedName);
+        $("#healthDis").append(updatedHealth);
+        $("#lightDis").append(updatedNL);
+        $("#medDis").append(updatedNM);
+        $("#heavyDis").append(updatedNH);
+        $("#moneyDis").append(upDatedGp);
+        $("#statsBtn4").hide();
+
+        hero.yourChar = new Character(updatedPlayer, updatedHealth, updatedAL, updatedAM, updatedAH, updatedNL, updatedNM, updatedNH, upDatedGp);
+        console.log(JSON.stringify(hero.yourChar));
+
+        //villan display
+        $("#villanName").text(villan.slimeeee.name);
+        $("#vhealthDis").append(villan.slimeeee.health)
+    });
+
+    $("#lightBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackL(villan.slimeeee);
+        hero.yourChar.minusAttacklight();
+        hero.yourChar.numAttacksLight();
+        villan.slimeeee.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#lightDis").text("Number of light attacks left: " + hero.yourChar.numLight);
+        $("#vhealthDis").text("health: " + villan.slimeeee.health);
+        villan.slimeeee.isAliveV4(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#medBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackM(villan.slimeeee);
+        hero.yourChar.minusAttackMed();
+        hero.yourChar.numAttacksMed();
+        villan.slimeeee.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health);
+        console.log("Hero-----", hero.yourChar)
+        $("#medDis").text("Number of Medium attacks left: " + hero.yourChar.numMed);
+        $("#vhealthDis").text("health: " + villan.slimeeee.health);
+        villan.slimeeee.isAliveV4(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#heavyBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.minusAttackHeavy();
+        hero.yourChar.numAttacksHeavy();
+        hero.yourChar.attackH(villan.slimeeee);
+        villan.slimeeee.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#heavyDis").text("Number of Heavy attacks left: " + hero.yourChar.numHeavy);
+        $("#vhealthDis").text("health: " + villan.slimeeee.health);
+        villan.slimeeee.isAliveV4(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+})
+
+/////////////////////////////////////boss/////////////////////////
+
+$(document).ready(function () {
+
+    $("#statsBtnB").on("click", function () {
+        event.preventDefault();
+        updatedPlayer = $(this).data("player");
+        updatedName = $(this).data("name");
+        upDatedGp = $(this).data("gp");
+        updatedHealth = $(this).data("health");
+        updatedAL = $(this).data("al");
+        updatedAM = $(this).data("am");
+        updatedAH = $(this).data("ah");
+        updatedNL = $(this).data("nl");
+        updatedNM = $(this).data("nm");
+        updatedNH = $(this).data("nh");
+
+        // hero display
+        $("#heroName").append(updatedName);
+        $("#healthDis").append(updatedHealth);
+        $("#lightDis").append(updatedNL);
+        $("#medDis").append(updatedNM);
+        $("#heavyDis").append(updatedNH);
+        $("#moneyDis").append(upDatedGp);
+        $("#statsBtnB").hide();
+
+        hero.yourChar = new Character(updatedPlayer, updatedHealth, updatedAL, updatedAM, updatedAH, updatedNL, updatedNM, updatedNH, upDatedGp);
+        console.log(JSON.stringify(hero.yourChar));
+
+        //villan display
+        $("#villanName").text(villan.baues.name);
+        $("#vhealthDis").append(villan.baues.health)
+    });
+
+    $("#lightBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackL(villan.baues);
+        hero.yourChar.minusAttacklight();
+        hero.yourChar.numAttacksLight();
+        villan.baues.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#lightDis").text("Number of light attacks left: " + hero.yourChar.numLight);
+        $("#vhealthDis").text("health: " + villan.baues.health);
+        villan.baues.isAliveVB(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#medBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.attackM(villan.baues);
+        hero.yourChar.minusAttackMed();
+        hero.yourChar.numAttacksMed();
+        villan.baues.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health);
+        console.log("Hero-----", hero.yourChar)
+        $("#medDis").text("Number of Medium attacks left: " + hero.yourChar.numMed);
+        $("#vhealthDis").text("health: " + villan.baues.health);
+        villan.baues.isAliveVB(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
+    $("#heavyBtn").on("click", function () {
+        event.preventDefault();
+        hero.yourChar.minusAttackHeavy();
+        hero.yourChar.numAttacksHeavy();
+        hero.yourChar.attackH(villan.baues);
+        villan.baues.enemyAttack(hero.yourChar);
+        $("#healthDis").text("health: " + hero.yourChar.health)
+        $("#heavyDis").text("Number of Heavy attacks left: " + hero.yourChar.numHeavy);
+        $("#vhealthDis").text("health: " + villan.baues.health);
+        villan.baues.isAliveV(hero.yourChar)
+        hero.yourChar.isAlive();
+        console.log("---------", hero.yourChar);
+    });
+
 });
 
-// the good guys
-
-
-// villan.slipperyPete = new Enemy("Slippery Pete", 450, 100, 200, 200);
-// villan.bigDaddyMac = new Enemy("Big Daddy Mac", 500, 150, 250, 300);
-// villan.baues = new Enemy("Baues", 1000,  250, 400, 500);
-
-
-
-//************* unused code *************
-
-// Runs all functions in constructors 
-
-// hero.yourChar.attack(villan.jade);
-// console.log("--------------", villan.jade)
-// hero.isAlive();
-// hero.shopPurchases();
-// hero.numAttacks();
-// hero.attack();
-// hero.printStats();
-
-// villan.attack(hero);
-// villan.isAlive();
-// villan.randomAttack();
-
-
-// code to loop so game keeps going until death THERE cAN ONLY BE ONe!!!!!!!!!!!
-// might not be needed
-// while (hero.yourChar.isAlive() === true && villan.isAlive() === true) {
-//     hero.attack(villan);
-//     villan.attack(hero);
-// }
-
-
-
-
-// function Enemy(name, health, attackLight, attackMed, attackHeavy) {
-
-//     // checks to see if enemy is alive (might not need)
-//     this.isAlive = function () {
-//         if (this.health > 0) {
-//             console.log(this.name + "is living")
-//             return true;
-//         } else {
-//             // code for going back to game once enemy dies and giving Character more money
-//         }
-//         console.log(this.name + "dead")
-//         return false;
-//     };
-
-//     // when you wanna body the Hero 
-//     this.enemyAttack = function (Character) {
-//         Character.attackLight -= this.health;
-//         Character.attackMed -= this.health;
-//         Character.attackHeavy -= this.health
-//     }
-
-//     // for when the villan gets attacked
-//     this.enemyGettingHit = function () {
-//         Enemy.attackLight -= this.health;
-//         Enemy.attackMed -= this.health;
-//         Enemy.attackHeavy -= this.health
-//     }
-//     //********************* need help setting up random attacks****************************//
-
-//     //code to make attacks random
-//     this.randomAttack = function (hero, villan) {
-
-//         Math.floor(Math.random(attacks) * 4);
-
-//     }
-// }
+$("#doSomething").css({
+    "float": "right"
+});

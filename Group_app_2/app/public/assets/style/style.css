@@ -25,7 +25,7 @@
 #arrow {
     width: 50px;
     height: 70px;
-    right: 283px;
+    right: 302px;
     position: relative;
 }
 
@@ -33,7 +33,7 @@
     width: 50px;
     height: 70px;
     position: absolute;
-    top: 440px;
+    top: 438px;
     left: 858px;
 }
 
@@ -48,15 +48,16 @@
 #backdoor1 {
     width: 50px;
     height: 70px;
-    top: -110px;
-    /* right: 1188px; */
+    /* top: -110px; */
+    right: 1119px;
     position: relative;
 }
 
 #backdoor2 {
     width: 50px;
     height: 70px;
-    top: -75px;
+    /* top: -55px; */
+    left: -1154px;
     /* right: 1222px; */
     position: relative;
 }
@@ -64,26 +65,29 @@
 #backdoor3 {
     width: 50px;
     height: 70px;
-    top: -75px;
+    /* top: -75px; */
     /* right: 1222px; */
+    left: -1154px;
     position: relative;
 }
 
 #backdoor4 {
     width: 50px;
     height: 70px;
-    top: -75px;
+    /* top: -75px; */
     /* right: 1170px; */
     position: relative;
+    left: -1154px;
 }
 
 #shopdoor {
     height: 105px;
     width: 64px;
     position: absolute;
-    /* top: -110px; */
-    right: 600px;
-    left: 277px;
+    top: 400px;
+    /* right: 300px; */
+
+    left: 337px;
 }
 
 #moneyone {
@@ -125,4 +129,10 @@
     position: absolute;
     top: 440px;
     left: 858px;
+}
+
+.jumbotronE {
+    float: right;
+    margin-top: 12%;
+    margin-right: 10%;
 }
