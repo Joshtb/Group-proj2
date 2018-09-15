@@ -19,5 +19,9 @@
     "requirejs": "^2.3.6",
     "sequelize": "^4.38.0",
     "sql": "^0.78.0"
+  },
+  "scripts": {
+    "start": "node server.js"
   }
+
 }
