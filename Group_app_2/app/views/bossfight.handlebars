@@ -1,33 +1,34 @@
 {{#each player}}
 
-<div class="jumbotron">
-    <h1 class="display-4" id="heroName"></h1>
-    <a class="btn btn-primary btn-lg" id="statsBtn" data-player="{{player_id}}" data-name="{{player_name}}" data-am="{{attackMed}}"
-        data-al="{{attackLight}}" data-ah="{{attackHeavy}}" data-nl="{{numLight}}" data-nm="{{numMed}}" data-nh="{{numHeavy}}"
-        data-gp="{{gp}}" data-health="{{health}}" href="#" role="button">Click here to power up</a>
-    <p class="lead" id="healthDis">Health: </p>
-    <hr class="my-4">
-    <p id="lightDis">Number of light attacks left:</p>
-    <p id="medDis">Number of medium attacks left:</p>
-    <p id="heavyDis">Number of heavy attacks left:</p>
-    <p id="moneyDis">Money:</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" id="lightBtn" href="#" role="button">Light Attack</a>
-        <a class="btn btn-primary btn-lg" id="medBtn" href="#" role="button">Medium Attack</a>
-        <a class="btn btn-primary btn-lg" id="heavyBtn" href="#" role="button">Heavy Attack</a>
-    </p>
-    {{/each}}
+
+<div class="jumbotronH" id="doSomething">
+    <h1id="heroName" class="display-4">
+        </h1>
+        <a class="btn btn-primary btn-lg" id="statsBtnB" data-player="{{player_id}}" data-name="{{player_name}}" data-am="{{attackMed}}"
+            data-al="{{attackLight}}" data-ah="{{attackHeavy}}" data-nl="{{numLight}}" data-nm="{{numMed}}" data-nh="{{numHeavy}}"
+            data-gp="{{gp}}" data-health="{{health}}" href="#" role="button">Click here to power up</a>
+        <p class="lead" id="healthDis">Health: </p>
+        <hr class="my-4">
+        <p id="lightDis">Number of light attacks left:</p>
+        <p id="medDis">Number of medium attacks left:</p>
+        <p id="heavyDis">Number of heavy attacks left:</p>
+        <p id="moneyDis">Money:</p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" id="lightBtn" href="#" role="button">Light Attack</a>
+            <a class="btn btn-primary btn-lg" id="medBtn" href="#" role="button">Medium Attack</a>
+            <a class="btn btn-primary btn-lg" id="heavyBtn" href="#" role="button">Heavy Attack</a>
+        </p>
+        {{/each}}
 </div>
 
-<div class="jumbotron">
+
+<div class="jumbotronE" id="doSomething2">
     <h1 class="display-4" id="villanName"></h1>
     <p class="lead" id="vhealthDis">Health:</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+
     </p>
 </div>
+
 
 
 

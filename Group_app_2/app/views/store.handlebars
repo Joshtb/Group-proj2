@@ -1,11 +1,23 @@
 <div class="jumbotron">
     <h1>Store!</h1>
+
     <h2>Your Stats!</h2>
     <ul>
         {{#each player}} Player name: {{player_name}} <br> GP: ${{gp}} <br> Health: {{health}} <br> Attack Light: {{attackLight}}
         <br> Attack Med: {{attackMed}} <br> Attack Heavy: {{attackHeavy}} <br> Num Light: {{numLight}} <br> Num Med: {{numMed}}
         <br> Num Heavy: {{numHeavy}} <br> Player Id: {{player_id}} <br>
+
     </ul>
+    <h2>Cart</h2><br>
+    <ul class="targetDiv2" data-id="{{player_id}}">
+        <h3>Upgrades: </h3>
+        <p id="health"></p><br>
+        <p id="attackLight"></p><br>
+        <p id="attackMed"></p><br>
+        <p id="attackHeavy"></p><br>
+
+    </ul>
+
     <h2>Items for sale!</h2>
     <ul class="targetDiv" data-id="{{player_id}}">
 
